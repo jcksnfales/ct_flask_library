@@ -1,6 +1,6 @@
 from forms import UserLoginForm, UserRegisterForm
 from models import User, db, check_password_hash
-from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask import Blueprint, render_template, request, redirect, flash
 from flask_login import login_user, logout_user, LoginManager, current_user, login_required
 
 auth = Blueprint('auth', __name__, template_folder='auth_templates')
@@ -21,7 +21,7 @@ def signup():
             if email in existing_users:
                 # if there's already an account registered with that email, return the user an error
                 flash(f'"{email}" has already been registered.', category='auth-register-failed')
-                return redirect(url_for('auth.signup'))
+                return redirect('/signup')
             else:
                 # otherwise, register the email
                 new_user = User(email, password=password)
@@ -29,7 +29,7 @@ def signup():
                 db.session.commit()
 
                 flash(f'Successfully registered "{email}"', category='auth-register-success')
-                return redirect(url_for('auth.signin'))
+                return redirect('/signin')
     except:
         raise Exception('Invalid Form Data')
     return render_template('sign_up.html', form=form)
@@ -51,11 +51,11 @@ def signin():
                 # if the username and password are valid, log user in and return a success message
                 login_user(logged_user)
                 flash('Successfully logged in.', 'auth-login-success')
-                return redirect(url_for('site.profile'))
+                return redirect('/profile')
             else:
                 # if the username/password are NOT valid, return the user an error message
                 flash('Incorrect username or password.', category='auth-login-failed')
-                return redirect(url_for('auth.signin'))
+                return redirect('/signin')
     except:
         raise Exception('Invalid Form Data')
     return render_template('sign_in.html', form=form)
@@ -65,4 +65,4 @@ def signin():
 def logout():
     logout_user()
     flash('Successfully logged out.', 'auth-logout-success')
-    return redirect(url_for('auth.signin'))
+    return redirect('/signin')
