@@ -51,7 +51,7 @@ class User(db.Model, UserMixin):
 class Book(db.Model):
     contributor_token = db.Column(db.String) #----------- token of the user who contributed the book
     local_id = db.Column(db.String, primary_key=True) #-- locally-stored id for the book
-    isbn = db.Column(db.Integer, default=1001101000001) # isbn for this book (format: xxx-x-xx-xxxxxx-x)
+    isbn = db.Column(db.BigInteger, default=1001101000001) # isbn for this book (format: xxx-x-xx-xxxxxx-x)
     title = db.Column(db.String(150), default='')
     author = db.Column(db.String(150), default='')
     page_count = db.Column(db.Integer, default=0)
