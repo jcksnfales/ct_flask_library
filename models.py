@@ -48,37 +48,32 @@ class User(db.Model, UserMixin):
         return f'User {self.email}'
     
 
-# class Car(db.Model):
-#     user_token = db.Column(db.String)
-#     id = db.Column(db.String, primary_key = True)
-#     nickname = db.Column(db.String(150), default = '')
-#     make = db.Column(db.String(150), default = '')
-#     model = db.Column(db.String(150), default = '')
-#     prodyear = db.Column(db.Integer)
-#     mileage = db.Column(db.Integer, default = 0)
+class Book(db.Model):
+    contributor_token = db.Column(db.String) #----------- token of the user who contributed the book
+    local_id = db.Column(db.String, primary_key=True) #-- locally-stored id for the book
+    isbn = db.Column(db.Integer, default=1001101000001) # isbn for this book (format: xxx-x-xx-xxxxxx-x)
+    title = db.Column(db.String(150), default='')
+    author = db.Column(db.String(150), default='')
+    page_count = db.Column(db.Integer, default=0)
+    is_hardcover = db.Column(db.Boolean, default=False)
 
-#     def __init__(self, user_token, nickname='', make='', model='', prodyear='', mileage=0):
-#         self.user_token = user_token
-#         self.id = self.set_id()
-#         self.nickname = nickname 
-#         self.make = make
-#         self.model = model 
-#         self.prodyear = prodyear
-#         self.mileage = mileage
+    def __init__(self, contributor_token, isbn, title='', author='', page_count=0, is_hardcover=False):
+        self.contributor_token = contributor_token
+        self.local_id = self.set_id()
+        self.isbn = isbn
+        self.title = title
+        self.author = author
+        self.page_count = page_count
 
-#     def set_id(self):
-#         return secrets.token_urlsafe()
+    def set_id(self):
+        return secrets.token_urlsafe()
     
-#     def __repr__(self):
-#         # using a list comprehension, get a combined string of the non-null values for prodyear, make, and model
-#         car_identity = ' '.join([str(field) for field in [self.prodyear, self.make, self.model] if field])
-#         # if this car has no nickname, just return car_identity;
-#         # otherwise, return the nickname in quotes followed by car_identity
-#         return car_identity if not self.nickname else f'"{self.nickname}", {car_identity}'
+    def __repr__(self):
+        return f'"{self.title}" by {self.author}'
     
-# class CarSchema(ma.Schema):
-#     class Meta:
-#         fields = ['user_token', 'id', 'nickname', 'make', 'model', 'prodyear', 'mileage']
+class BookSchema(ma.Schema):
+    class Meta:
+        fields = ['contributor_token', 'local_id', 'isbn', 'title', 'author', 'page_count']
 
-# car_schema = CarSchema()
-# cars_schema = CarSchema(many=True)
+book_schema = BookSchema()
+books_schema = BookSchema(many=True)
