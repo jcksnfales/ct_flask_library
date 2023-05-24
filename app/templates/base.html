@@ -4,25 +4,31 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<meta name="Description" content="Enter your description here"/>
+<meta name="Description" content="Online book catalog API"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <link rel="stylesheet" href="../static/css/style.css">
-<title>Car Inventory</title>
+<title>Book Catalog</title>
 </head>
 <body class="bg-dark text-white" style="padding-top:85px;">
     <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 fixed-top">
         <div class="container w-75">
-            <a href="#" class="navbar-brand">Car Inventory API</a>
+            <a href="/" class="navbar-brand">Book Catalog</a>
             <button class="navbar-toggler my-1" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navmenu">
                 <ul class="navbar-nav ms-auto ps-2 me-2">
                     <li class="nav-item">
-                        <a href="{{ url_for('site.landing') }}" class="nav-item nav-link">Home</a>
+                        <a href="/" class="nav-item nav-link">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/books" class="nav-item nav-link">Books</a>
                     </li>
                 <!-- LOGGED IN -->
                 {% if current_user.is_authenticated %}
+                    <li class="nav-item">
+                        <a href="/contribute" class="nav-item nav-link">Contribute</a>
+                    </li>
                     <li class="nav-item"> 
                         <a href="{{ url_for('site.profile') }}" class="nav-item nav-link">Profile</a>
                     </li>
