@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="Description" content="Enter your description here"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link rel="stylesheet" href="../static/css/style.css">
+<title>Car Inventory</title>
+</head>
+<body class="bg-dark text-white" style="padding-top:85px;">
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 fixed-top">
+        <div class="container w-75">
+            <a href="#" class="navbar-brand">Car Inventory API</a>
+            <button class="navbar-toggler my-1" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navmenu">
+                <ul class="navbar-nav ms-auto ps-2 me-2">
+                    <li class="nav-item">
+                        <a href="{{ url_for('site.landing') }}" class="nav-item nav-link">Home</a>
+                    </li>
+                <!-- LOGGED IN -->
+                {% if current_user.is_authenticated %}
+                    <li class="nav-item"> 
+                        <a href="{{ url_for('site.profile') }}" class="nav-item nav-link">Profile</a>
+                    </li>
+                </ul>
+                <a href="{{ url_for('auth.logout') }}" class="btn btn-outline-danger nav-link my-2" id="logout-btn">Sign Out</a>
+                <!-- NOT LOGGED IN -->
+                {% else %}
+                </ul>
+                <a href="{{ url_for('auth.signin') }}" class="btn btn-primary text-white nav-link my-2">Sign In</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+    
+    {% block content %}
+    <!-- JINJA CONTENT INJECTION -->
+    {% endblock content %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.0/js/bootstrap.min.js"></script>
+</body>
+</html>

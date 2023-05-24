@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container w-75" id="page-content">
+    <header class="d-md-flex flex-row-reverse">
+        <div class="col-12 col-md-6 d-flex flex-column justify-content-center align-items-center">
+            <h4>Catalog your car collection with us!</h4> <br> An API solution for all your car-cataloguing needs
+        </div>
+        <div class="col-12 col-md-6">
+            <div class="row">
+                <img src="../../static/img/undraw_collecting_re_lp6p.svg" alt="" class="img-fluid p-4 w-75 mx-auto" style="max-width:900px">
+            </div>
+        </div>
+    </header>
+
+    <section class="row mt-2 py-1 text-center">
+        <div class="col-12 px-0 h4">How it works</div>
+    </section>
+    <section class="d-lg-flex flex-row text-center">
+        <div class="col-12 col-lg-4">
+            Push and pull info with our API <br>
+            <div class="row">
+                <img src="../../static/img/undraw_server_push_re_303w.svg" alt="" class="img-fluid p-4 w-75 mx-auto" style="max-width:300px">
+            </div>
+        </div>
+        <div class="col-12 col-lg-4">
+            Data stored persistently with SQL <br>
+            <div class="row">
+                <img src="../../static/img/undraw_server_cluster_jwwq.svg" alt="" class="img-fluid p-4 w-75 mx-auto" style="max-width:300px">
+            </div>
+        </div>
+        <div class="col-12 col-lg-4">
+            Secured with token verification <br>
+            <div class="row">
+                <img src="../../static/img/undraw_secure_server_re_8wsq.svg" alt="" class="img-fluid p-4 w-75 mx-auto" style="max-width:300px">
+            </div>
+        </div>
+    </section>
+
+    <section class="d-md-flex flex-row mt-3">
+        <div class="col-12 col-md-6 d-flex flex-column justify-content-center align-items-center">
+            <h4>Got questions?</h4><br>
+            Get in touch on our Slack channel!<br>
+            <a href="#thisbuttondoesntactuallywork" class="btn btn-primary mt-2">Slack</a>
+        </div>
+        <div class="col-12 col-md-6">
+            <div class="row">
+                <img src="../../static/img/undraw_active_support_re_b7sj.svg" alt="" class="img-fluid p-4 w-75 mx-auto" style="max-width:900px">
+            </div>
+        </div>
+    </section>
+
+    <section class="row mt-2 py-1 text-center">
+        <div class="col-12 px-0 h4">Ready to get started?</div>
+        <a href="{% if current_user.is_authenticated %}{{ url_for('site.profile') }}{% else %}{{ url_for('auth.signin') }}{% endif %}" class="btn btn-primary btn-lg w-50 py-3 mt-3 mx-auto">Get API Key</a>
+    </section>
+
+    <footer class="row mt-3">
+        <div class="col-12 px-0 text-center text-secondary">&copy; 2023 Jackson Fales</div>
+    </footer>
+</div>
+{% endblock %}

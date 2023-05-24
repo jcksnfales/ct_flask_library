@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container w-75" id="page-content">
+    <!-- HEADER TEXT -->
+    <header class="row mt-2 py-1 text-center">
+        <div class="col-12 px-0 h4">User Info</div>
+    </header>
+    <!-- FLASHED MESSAGES -->
+    {% include 'flashes.html' %}
+    <!-- USER PROFILE DETAILS -->
+    <section class="row mt-3">
+        <div class="col-12 col-md-11 col-lg-10 mx-auto ps-1 pe-0">
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Email:</strong> {{ current_user.email }}</li>
+                <li class="list-group-item"><strong>Token:</strong> <samp>{{ current_user.token }}</samp></li>
+            </ul>
+        </div>
+    </section>
+    <!-- USER CARS -->
+    <div class="row mt-5 py-1 text-center">
+        <div class="col-12 px-0 h4">User Cars</div>
+    </div>
+    <section class="row mt-3">
+        <div class="col-12 col-md-11 col-lg-10 mx-auto ps-1 pe-0">
+            {% if user_cars %}
+            <!-- cars owned by user found -->
+            <div id="table-container" class="rounded overflow-hidden">
+                <table class="table table-light table-striped m-0">
+                    <thead>
+                        <th scope="col">#</th>
+                        <th scope="col">Car</th>
+                        <th scope="col">ID</th>
+                    </thead>
+                    <tbody>
+                        {% for car_num in range(user_cars|length) %}
+                        <tr>
+                            <th scope="row">{{ car_num + 1 }}</th>
+                            <td>{{ user_cars[car_num] }}</td>
+                            <td><samp>{{ user_cars_json[car_num]['id'] }}</samp></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>    
+            </div>
+            {% else %}
+            <!-- no cars owned by user found -->
+            <ul class="list-group">
+                <li class="list-group-item text-center"><strong>You have no cars!</strong></li>
+                <li class="list-group-item text-center">Add cars by accessing our API with your token.</li>
+            </ul>
+            {% endif %}
+        </div>
+    </section>
+</div>
+{% endblock %}
