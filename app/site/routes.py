@@ -24,11 +24,11 @@ def contribute():
 
         try:
             if request.method == 'POST' and form.validate_on_submit():
-                title = form.title.data
-                isbn = form.title.data
-                author = form.author.data
-                page_count = form.page_count.data
-                is_hardcover = form.is_hardcover.data
+                title = str(form.title.data)
+                isbn = int(form.isbn.data)
+                author = str(form.author.data)
+                page_count = int(form.page_count.data)
+                is_hardcover = bool(form.is_hardcover.data)
 
                 new_book = Book(current_user.token, isbn, title, author, page_count, is_hardcover)
                 db.session.add(new_book)
@@ -37,7 +37,7 @@ def contribute():
                 flash(f'Successfully added the book "{title}"', category='contribute-success')
                 return redirect('/contribute')
         except:
-            raise Exception('Invalid Form Data')
+            raise Exception(f'Invalid Form Data: {book_schema.dump(new_book)}')
         
         # until POST, direct user to the contribution form
         return render_template('contribute.html', form=form)
