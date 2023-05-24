@@ -24,8 +24,8 @@ def signup():
                 return redirect(url_for('auth.signup'))
             else:
                 # otherwise, register the email
-                user = User(email, password = password)
-                db.session.add(user)
+                new_user = User(email, password=password)
+                db.session.add(new_user)
                 db.session.commit()
 
                 flash(f'Successfully registered "{email}"', category='auth-register-success')
