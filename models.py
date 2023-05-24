@@ -57,13 +57,14 @@ class Book(db.Model):
     page_count = db.Column(db.Integer, default=0)
     is_hardcover = db.Column(db.Boolean, default=False)
 
-    def __init__(self, contributor_token, isbn, title='', author='', page_count=0, is_hardcover=False):
+    def __init__(self, contributor_token, isbn=1001101000001, title='', author='', page_count=0, is_hardcover=False):
         self.contributor_token = contributor_token
         self.local_id = self.set_id()
         self.isbn = isbn
         self.title = title
         self.author = author
         self.page_count = page_count
+        self.is_hardcover = is_hardcover
 
     def set_id(self):
         return secrets.token_urlsafe()
