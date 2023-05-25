@@ -1,0 +1,31 @@
+<section class="row mt-3">
+    <div class="col-12 col-md-11 col-lg-10 mx-auto ps-1 pe-0">
+        {% if books %}
+        <!-- books found -->
+        <div id="table-container" class="rounded overflow-hidden">
+            <table class="table table-light table-striped m-0">
+                <thead>
+                    <th scope="col">#</th>
+                    <th scope="col">Book</th>
+                    <th scope="col">ID</th>
+                </thead>
+                <tbody>
+                    {% for book_num in range(books|length) %}
+                    <tr>
+                        <th scope="row">{{ book_num + 1 }}</th>
+                        <td>{{ books[book_num] }}</td>
+                        <td><samp>{{ books_json[book_num]['id'] }}</samp></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>    
+        </div>
+        {% else %}
+        <!-- no books found -->
+        <ul class="list-group">
+            <li class="list-group-item text-center"><strong>No books found!</strong></li>
+            <li class="list-group-item text-center">Fill out this list by <a href="{% if current_user.is_authenticated %}/contribute{% else %}/signin{% endif %}" class="text-primary">contributing some!</a></li>
+        </ul>
+        {% endif %}
+    </div>
+</section>
