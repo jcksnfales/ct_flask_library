@@ -7,14 +7,16 @@
                 <thead>
                     <th scope="col">#</th>
                     <th scope="col">Book</th>
-                    <th scope="col">ID</th>
+                    <th scope="col">Pages</th>
+                    <th scope="col">ISBN</th>
                 </thead>
                 <tbody>
                     {% for book_num in range(books|length) %}
                     <tr>
                         <th scope="row">{{ book_num + 1 }}</th>
                         <td>{{ books[book_num] }}</td>
-                        <td><samp>{{ books_json[book_num]['id'] }}</samp></td>
+                        <td>{{ books_json[book_num]['page_count'] }}</td>
+                        <td><samp>{{ books_json[book_num]['isbn'] }}</samp></td>
                     </tr>
                     {% endfor %}
                 </tbody>
