@@ -14,25 +14,38 @@
             <form method="POST">
                 {{ form.hidden_tag() }}
                 <div class="form-group my-2">
+                    <!-- TITLE -->
                     <fieldset id="title-field">
                         <small class="ms-1 mb-1 text-secondary">{{ form.title.label }}</small>
                         {{ form.title(class='form-control', placeholder='book title') }}
                     </fieldset>
+                    <!-- ISBN -->
                     <fieldset id="isbn-field">
                         <small class="ms-1 mb-1 text-secondary">{{ form.isbn.label }}</small>
                         {{ form.isbn(class='form-control', placeholder='book ISBN') }}
                     </fieldset>
+                        {% if form.isbn.errors %}
+                        <!-- ISBN VALIDATION ERROR -->
+                        <div class="ms-1 text-danger"><em>{{ form.isbn.errors[0] }}</em></div>
+                        {% endif %}
+                    <!-- AUTHOR -->
                     <fieldset id="author-field">
                         <small class="ms-1 mb-1 text-secondary">{{ form.author.label }}</small>
                         {{ form.author(class='form-control', placeholder='book author') }}
                     </fieldset>
+                    <!-- PAGE COUNT -->
                     <fieldset id="page-count-field">
                         <small class="ms-1 mb-1 text-secondary">{{ form.page_count.label }}</small>
                         {{ form.page_count(class='form-control', placeholder='page count') }}
                     </fieldset>
-                    <fieldset id="is-hardcover-field">
+                        {% if form.page_count.errors %}
+                        <!-- PAGE COUNT VALIDATION ERROR -->
+                        <div class="ms-1 text-danger"><em>{{ form.page_count.errors[0] }}</em></div>
+                        {% endif %}
+                    <!-- IS HARDCOVER -->
+                    <fieldset id="is-hardcover-field" class="d-flex justify-content-start align-items-center">
                         <small class="ms-1 mb-1 text-secondary">{{ form.is_hardcover.label }}</small>
-                        {{ form.is_hardcover(class='form-control') }}
+                        {{ form.is_hardcover(class='ms-1 form-check') }}
                     </fieldset>
                 </div>
                 <!-- SUBMIT BUTTON -->
