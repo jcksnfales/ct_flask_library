@@ -74,7 +74,7 @@ class Book(db.Model):
     
 class BookSchema(ma.Schema):
     class Meta:
-        fields = ['contributor_token', 'local_id', 'isbn', 'title', 'author', 'page_count']
+        fields = ['contributor_token', 'local_id', 'title', 'isbn', 'author', 'page_count', 'is_hardcover']
 
 book_schema = BookSchema()
 books_schema = BookSchema(many=True)
