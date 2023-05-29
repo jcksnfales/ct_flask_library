@@ -31,7 +31,7 @@ def get_all_books(current_user_token):
     # iterate through books, removing access tokens that do not belong to the current user
     for book_num in range(len(all_books)):
         if all_books[book_num]['contributor_token'] != current_user_token.token:
-            all_books[book_num]['contributor_token'] = 'different user'
+            all_books[book_num]['contributor_token'] = 'DIFFERENT USER'
     # return filtered list of all books  
     return jsonify(all_books)
 
@@ -46,9 +46,9 @@ def get_user_books(current_user_token):
 @api.route('/books/<id>', methods=['GET'])
 @token_required
 def get_book_by_id(current_user_token, id):
-    # find the book by id
+    # find book by id
     current_book = Book.query.get(id)
-    # check the book's contributor_token against the current user's token
+    # check book's contributor_token against the current user's token
     if current_user_token.token == current_book.contributor_token:
         # if user tokens match, return book's data
         return jsonify(book_schema.dump(current_book))
@@ -57,6 +57,36 @@ def get_book_by_id(current_user_token, id):
         return jsonify({'message': f'Given book {id} does not belong to given access token'})
 
 # UPDATE BOOK BY ID
-
+@api.route('/books/<id>', methods=['POST','PUT'])
+@token_required
+def update_book_by_id(current_user_token, id):
+    # find book by id
+    updated_book = Book.query.get(id)
+    # check book's contributor_token against the current user's token
+    if current_user_token.token == updated_book.contributor_token:
+        # if user tokens match, update book's data
+        updated_book.title = request.json['title']
+        updated_book.isbn = request.json['isbn']
+        updated_book.author = request.json['author']
+        updated_book.page_count = request.json['page_count']
+        updated_book.is_hardcover = request.json['is_hardcover']
+        return jsonify(book_schema.dump(updated_book))
+    else:
+        # if user tokens do not match, return an error message
+        return jsonify({'message': f'Given book {id} does not belong to given access token'})
 
 # DELETE BOOK
+@api.route('/books/<id>', methods=['DELETE'])
+@token_required
+def delete_book_by_id(current_user_token, id):
+    # find book by id
+    deleted_book = Book.query.get(id)
+    # check book's contributor_token against the current user's token
+    if current_user_token.token == deleted_book.contributor_token:
+        # if user tokens match, delete the book
+        db.session.delete(deleted_book)
+        db.session.commit()
+        return jsonify(book_schema.dump(deleted_book))
+    else:
+        # if user tokens do not match, return an error message
+        return jsonify({'message': f'Given book {id} does not belong to given access token'})
