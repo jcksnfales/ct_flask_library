@@ -86,6 +86,8 @@ def update_book_by_id(current_user_token, id):
     updated_book.author = request.json['author']
     updated_book.page_count = request.json['page_count']
     updated_book.is_hardcover = request.json['is_hardcover']
+    
+    db.session.commit()
     return jsonify(book_schema.dump(updated_book))
 
 # DELETE BOOK
